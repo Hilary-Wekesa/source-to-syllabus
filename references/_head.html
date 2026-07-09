@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COURSE_TITLE</title>
+
+  <!-- Fonts: Clash Display (Fontshare) · Satoshi (Fontshare) · Geist Mono (Google) -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    /* Apply saved light/dark choice before paint (no flash). */
+    (function(){ try{ if(localStorage.getItem('sts-theme')==='dark') document.documentElement.classList.add('theme-dark'); }catch(e){} })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+
+  <!--
+    CUSTOMIZE PER COURSE — set the four accent variables (required).
+    Palettes:
+      vermillion  #D94F30 / #C4432A / #FDEEE9 / #E8836C
+      teal        #2A7B9B / #1F6280 / #E4F2F7 / #5A9DB8
+      forest      #2D8B55 / #226B41 / #E8F5EE / #5AAD7A
+      seaside     #006D77 / #00565E / #E3F0F0 / #83C5BE  (stormy-teal + terracotta; DEFAULT — pairs with accent-2 #E29578 + cream surface)
+      lapis-velvet #213885 / #081849 / #E7E9F3 / #5F6FA8  (jewel-toned option; pairs with magenta accent-2 #893172)
+    OPTIONAL (fuller brand): also override --color-accent-2, --color-actor-*, --color-surface-warm.
+  -->
+  <style>
+    :root {
+      --accent-base:        ACCENT_COLOR;
+      --accent-base-hover:  ACCENT_HOVER;
+      --accent-base-light:  ACCENT_LIGHT;
+      --accent-base-muted:  ACCENT_MUTED;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <div class="reading-progress"></div>
+  <button class="sidebar-toggle" aria-label="Toggle navigation">☰</button>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="sidebar-brand" href="index.html">COURSE_TITLE</a>
+      <div class="sidebar-sub">COURSE_SUBTITLE</div>
+      <span class="sidebar-level">LEVEL</span>
+      <button class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-toggle-icon">🌙</span> <span class="theme-toggle-label">Dark mode</span></button>
+
+      <a class="sb-top-link" href="index.html">Overview &amp; syllabus</a>
+      <a class="sb-top-link" href="architecture.html">Architecture</a>
+
+      <!--
+        SIDEBAR_MODULES — one .sb-module block per module. Each module has
+        an Overview page and a Deep Dive page. Keep filenames in sync with src/.
+
+        <div class="sb-module">
+          <div class="sb-module-title"><span class="sb-num">01</span> Module Title</div>
+          <div class="sb-links">
+            <a class="sb-link" href="01-overview.html">Overview</a>
+            <a class="sb-link deep" href="01-deep-dive.html">Deep Dive</a>
+          </div>
+        </div>
+      -->
+      SIDEBAR_MODULES
+    </aside>
+
+    <main class="page">
+      <!-- src/*.html fragment content is inserted here by build.sh -->

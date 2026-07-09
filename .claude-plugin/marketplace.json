@@ -1,0 +1,13 @@
+{
+  "name": "source-to-syllabus",
+  "owner": {
+    "name": "Hilary Wekesa"
+  },
+  "plugins": [
+    {
+      "name": "source-to-syllabus",
+      "source": "./",
+      "description": "Turn any codebase into a beautiful, multi-page interactive HTML course — plain-English intuition through proper software-engineering depth, with a deep codebase analysis, Overview + Deep Dive pages, quizzes, and a light/dark toggle."
+    }
+  ]
+}

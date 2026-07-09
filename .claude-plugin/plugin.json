@@ -1,0 +1,19 @@
+{
+  "name": "source-to-syllabus",
+  "description": "Turn any codebase into a beautiful, multi-page interactive HTML course — plain-English intuition through proper software-engineering depth, with a deep codebase analysis, Overview + Deep Dive pages, quizzes, curated resources, and a light/dark toggle.",
+  "author": {
+    "name": "Hilary Wekesa"
+  },
+  "homepage": "https://github.com/Hilary-Wekesa/source-to-syllabus",
+  "repository": "https://github.com/Hilary-Wekesa/source-to-syllabus",
+  "license": "MIT",
+  "keywords": [
+    "skill",
+    "course",
+    "codebase",
+    "education",
+    "documentation",
+    "onboarding",
+    "learning"
+  ]
+}
