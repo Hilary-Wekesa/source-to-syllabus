@@ -22,6 +22,25 @@ Implementation patterns for every interactive element type used in courses. Pick
 15. [Visual File Tree](#visual-file-tree)
 16. [Icon-Label Rows](#icon-label-rows)
 17. [Numbered Step Cards](#numbered-step-cards)
+18. **Annotated Source Walkthrough** → see `references/annotated-code.md`
+19. **Evolution Diff Card** (`.diff-card`) → see `references/git-archaeology.md` §6
+20. **Progress Summary** (`.progress-summary`) — drop an empty `<div class="progress-summary"></div>` on the index page; `main.js` fills it with pages-completed, cumulative quiz score, and concepts flagged for revisiting.
+21. **Comprehension checkpoints** — explain-back, predict-before-reveal, retrieval practice, execution tracer, Ask Claude, confidence calibration, remediation, mastery checklist → see `references/comprehension.md`. These are mandatory, not optional garnish.
+
+> **Inline `onclick` is now optional (v5):** `main.js` binds `.quiz-option`,
+> `.quiz-check-btn`, and `.quiz-reset-btn` by event delegation, and
+> `.bug-line` via `data-bug="true|false"`. The `onclick="selectOption(this)"`
+> form in the patterns below still works and takes precedence when
+> present — but omitting it no longer leaves the element silently inert,
+> which was a real failure mode. Prefer the attribute-free form in new
+> pages; it's one less thing to forget.
+
+> **Auto-highlighting (v4):** any `<pre data-lang="python">` or
+> `<code data-lang="ts">` containing raw code is tokenized at runtime by
+> `main.js` — no hand-written `<span class="code-keyword">` needed.
+> Blocks that already contain manual `.code-*` spans are left untouched,
+> so the patterns below still work as written. Prefer `data-lang` for new
+> code; it's less error-prone and keeps snippets byte-identical to source.
 
 ---
 

@@ -39,3 +39,42 @@ Canonical references for the concepts and tools in this codebase (specs, officia
 
 ## 9. Proposed curriculum
 The final module list (4-7), each mapped to a build stage, with a one-line Overview focus and a one-line Deep Dive focus.
+
+---
+
+## 0. Course pin  (fill this first)
+
+```
+repo:   <git remote get-url origin>
+commit: <git rev-parse --short HEAD>
+date:   <YYYY-MM-DD>
+```
+
+Every code block in the course cites this commit via `data-sha` /
+`data-repo`. Pinning once keeps the course correct after the repo moves on.
+
+## 5b. Git archaeology  (evidence for section 5)
+
+Run the commands in `references/git-archaeology.md` and record:
+
+- **File-birth clusters** — dates and the module boundary drawn from each.
+  If history is unusable, state that and mark the build order **inferred
+  from dependency structure, not observed**.
+- **Churn ranking** — the 5-10 most-modified files. These are Deep Dive
+  and canonical-file candidates.
+- **Real bug commits** — 3-6 entries: `<sha>`, one line on what broke,
+  and which module's Failure Modes section will use it.
+- **Reverts, deletions, rewrites** — what was tried and abandoned, and
+  what that implies for Alternatives & Tradeoffs.
+- **Evolution diffs** worth rendering as `.diff-card`s.
+
+Never cite a SHA you didn't run `git show` on.
+
+## 6b. Canonical files per module
+
+For the annotation depth chosen in Phase 0, name the 1-2 files per module
+that will be rendered as Annotated Source Walkthroughs, with line ranges
+and a per-module annotation budget (~400 lines, ceiling 600).
+
+| Module | Canonical file | Lines to walk | Why it carries the module |
+|---|---|---|---|

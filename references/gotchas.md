@@ -80,3 +80,151 @@ A Deep Dive that just restates the Overview with longer words. **Fix:** it must 
 
 ### Relative-Link Assumptions
 Using absolute paths or subfolder paths in sidebar/pager links. All built pages live at the course root, so links are bare filenames (`02-deep-dive.html`). Opening via `file://` must work.
+
+---
+
+## v4 Gotchas (Annotated Code · Provenance · Verification)
+
+### Paraphrased Code
+The single most damaging failure. A model writes code that *looks like*
+the file instead of pasting the file. The course then teaches something
+the repo doesn't do, and the reader's trust dies the first time they open
+the real file. `verify_snippets.py` exists for exactly this — run it, and
+treat every `MISMATCH` as a hard stop. Never "fix" a mismatch by editing
+the note; fix it by pasting the real lines.
+
+### Provenance Drift
+`data-start` points at the wrong line because you counted from a
+different revision. Symptom: `verify_snippets.py` reports `DRIFT` with a
+corrected number. Always pin the whole course to one `data-sha` captured
+in Phase 1 and use it everywhere.
+
+### Manual Spans Inside a Walkthrough
+Hand-writing `<span class="code-keyword">` inside `.wt-source` breaks the
+byte-comparison and double-highlights. The tokenizer handles it. The only
+place manual spans still belong is a legacy `.translation-block`.
+
+### Walkthrough That Isn't a Walkthrough
+Forty lines rendered, six annotated. That's a translation block with
+extra chrome. `check.sh` fails below ~65% line coverage. Either annotate
+properly or use the right element.
+
+### Notes That Restate the Line
+"`i++` — increments i." Worthless, and it's what a model produces when it
+runs out of genuine insight. A note must say why-not-the-alternative,
+what-invariant-holds, what-breaks-if-wrong, or what-trips-readers-up. If
+you have nothing, mark it `.wt-note minor` and say so plainly rather than
+inventing significance.
+
+### Exhaustive Mode Applied to the Whole Repo
+"Line by line for everything" means *within the module's canonical
+files*, budgeted at ~400 annotated lines. Annotating every file produces
+a course nobody finishes and a build nobody can review.
+
+### Walkthroughs on Overview Pages
+Dumping a 100-line annotated file onto the Overview collapses the
+intuition/rigor split that the two-page structure exists to create.
+Walkthroughs live on Deep Dives by default.
+
+### Invented Commit SHAs
+Citing `fixed in a91f3c2` for a commit you never ran `git show` on. If
+the archaeology commands weren't run, don't cite history — say the
+history was unavailable and mark the build order as inferred.
+
+### Unrun Exercises
+Shipping a test that was never executed. It usually passes against the
+starter (so there's nothing to solve) or fails against the solution (so
+it's unsolvable). Run both paths before shipping.
+
+### Skipping check.sh Because It Looks Fine
+Looking fine is precisely what these checks catch past: broken pager
+links, a Deep Dive missing its `failure` section, a quiz with no
+`data-correct`, a dead spec link. `check.sh` must exit 0 before Phase 4
+is complete.
+
+### Search Silently Missing
+Opened over `file://`, browsers block `fetch('search-index.json')` and
+the search box hides itself by design. Don't debug it — tell the user to
+run `python3 -m http.server 8000` if they want search locally.
+
+### Glossary Injecting Into Code
+If terms start appearing highlighted inside code blocks, a fragment has
+malformed HTML (an unclosed `<pre>` or `<code>`) that defeated the
+injector's masking. Fix the HTML, not the glossary.
+
+---
+
+## v5 Gotchas (Comprehension Checkpoints)
+
+### Checkpoints Written After the Page
+The tell: predict blocks that appear *after* the explanation they're
+about. A prediction placed after the reveal is just a quiz with extra
+steps. Retrieval practice at the bottom of a page is the same mistake.
+Write checkpoints while structuring the page, not as a garnish.
+
+### Explain-Back With a Vague Rubric
+"Showed deep understanding" is not a point a reader can check against
+their own writing. Every rubric point must be concretely verifiable:
+"named the problem it solves", "said why a queue rather than a lock".
+Otherwise the rubric is decoration and the reader learns nothing from
+scoring themselves.
+
+### Model Answer Presented as "The" Answer
+There are many good ways to explain a system. Label it *"one good
+answer"*. A reader whose correct explanation differs from yours should
+not conclude they were wrong.
+
+### Implausible Distractors
+A predict block whose wrong options nobody would pick teaches nothing.
+The best distractor is what a competent engineer would assume before
+reading the code — which means you have to know what that assumption is.
+
+### Punishing Wrong Answers
+Low rubric scores, "no idea" recall ratings, and failed predictions must
+all still complete the checkpoint. The moment a reader can fail, they
+start optimising the checkbox instead of their understanding. The
+course's job is to locate the gap, not to grade.
+
+### Removing the Reading-Mode Toggle
+Without the escape hatch, a reader who wants a reference hits a wall of
+gates and closes the tab. `check.sh` fails if `.gates-toggle` is missing
+from `_head.html`. The gates are soft by contract — never make one block
+navigation.
+
+### Checkpoint Overload
+More than five checkpoints on a page and it stops being a course and
+starts being a form. Rotate types — predict → trace → explain → recall —
+rather than stacking four explain-backs.
+
+### Duplicate or Missing data-id
+Two checkpoints sharing a `data-id` silently share stored state, so
+answering one marks both. A checkpoint with no `data-id` can never be
+recorded and quietly blocks page completion forever. `check.sh` catches
+both.
+
+### Fabricated Bug Commits
+A `.bug-challenge` citing a commit that doesn't exist destroys the one
+thing that makes the element powerful. If the archaeology found no real
+bug, use an invented one and say plainly that it's illustrative.
+
+### Vague Ask-Claude Prompts
+"Quiz me on this codebase" produces a vague quiz. The prompt must name
+the module's specific concepts and tell the model to push back on
+hand-wavy answers — otherwise it's agreeable and the reader learns
+nothing.
+
+### Module 0 Skipped at Beginner Level
+The most common way this course breaks its own promise. "Anyone at any
+level" means someone who cannot yet read a function signature. If the
+level is Beginner and there is no `00-orientation.html`, Module 1 is a
+wall.
+
+### Condescending to Beginners
+Module 0's reader is new to code, not stupid, and is very often an expert
+in something else. Explain plainly, skip the cheerleading, and never
+apologise for the material.
+
+### Scroll-Based Completion
+If a page registers checkpoints, completion means *checkpoints met* —
+never scroll position. A progress badge that measures scrolling is
+decoration, and worse, it tells the reader they're done when they aren't.

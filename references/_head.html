@@ -49,7 +49,19 @@
       <a class="sidebar-brand" href="index.html">COURSE_TITLE</a>
       <div class="sidebar-sub">COURSE_SUBTITLE</div>
       <span class="sidebar-level">LEVEL</span>
+      <span class="sidebar-level annotation">ANNOTATION</span>
       <button class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-toggle-icon">🌙</span> <span class="theme-toggle-label">Dark mode</span></button>
+
+      <!-- Escape hatch: reveals every checkpoint answer at once, for
+           readers who want the course as a reference. Keep it. -->
+      <button class="gates-toggle" aria-label="Toggle guided mode" aria-pressed="false"><span class="gates-toggle-icon">◑</span> <span class="gates-toggle-label">Reading mode</span></button>
+
+      <!-- Course search. build.sh emits search-index.json; the box
+           hides itself if the index can't be fetched. Press "/" to focus. -->
+      <div class="sidebar-search">
+        <input type="search" placeholder="Search the course  /" aria-label="Search the course">
+        <div class="search-results"></div>
+      </div>
 
       <a class="sb-top-link" href="index.html">Overview &amp; syllabus</a>
       <a class="sb-top-link" href="architecture.html">Architecture</a>

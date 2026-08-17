@@ -75,3 +75,100 @@ For the module's central concept:
 - **Best practices (2-4):** [...]
 - **Common pitfalls (2-4):** [...]
 - **Curated resources (2-4, VERIFIED URLs):** type · title · source · one-line why. Follow `references/resource-curation.md`.
+
+---
+
+## v4 Brief Additions (Annotated Code · Provenance · Exercises)
+
+### Canonical Files
+The 1-2 files that *are* this module. Required at Line-by-line and
+Exhaustive annotation; useful at Standard.
+
+- `path/to/file.ext` — walkthrough L`start`–L`end` (`N` lines)
+  - Why this file carries the module's idea:
+  - Churn rank from Phase 1 (commits touching it):
+  - Fold ranges (boilerplate to collapse): `L44-49:imports`
+- Annotation budget for this module: `___ / 400 lines`
+
+### Code Snippets — provenance (pre-extracted, verbatim)
+Every snippet below is pasted from the file, never re-typed. The
+subagent writing this module copies these exactly.
+
+| Where used | `data-src` | `data-start` | Lines | Element |
+|---|---|---|---|---|
+| Overview, core concept | `app/cache.py` | 40 | 7 | translation-block |
+| Deep Dive, §complexity | `app/cache.py` | 88 | 34 | walkthrough |
+
+Course-wide pin: `data-sha=` ______  `data-repo=` ______
+
+### Real History (from Phase 1 git archaeology)
+- Build-order evidence: files born ______ (dates), placing this module at position ___
+- Bug-fix commits this module's **Failure Modes** section will use:
+  - `<sha>` — what actually broke, and why it was quiet
+- Reverts / deletions / rewrites feeding **Alternatives & Tradeoffs**:
+  - `<sha>` — what was tried, why it was abandoned
+- Evolution diff worth showing as a `.diff-card`: `<sha>` → `<sha>`
+
+### Runnable Exercise
+- Directory: `exercises/0N-slug/`
+- Tier: make-the-test-pass / break-it-then-explain / measure-it
+- What's hollowed out in `starter/`:
+- The assertion that fails:
+- Run command:
+- Verified: starter FAILS ☐ · solution PASSES ☐
+
+### Glossary Terms Introduced
+Terms this module is the first to use, for `glossary.json`:
+- `term` — plain-English definition (two sentences max)
+
+---
+
+## v5 Brief Additions (Comprehension Checkpoints)
+
+Plan these *with* the page, not after it. A predict block bolted on at
+the end is just a quiz; it has to come before the thing it's about.
+Budget **3-5 checkpoints per page**. See `references/comprehension.md`.
+
+### Retrieval practice (Overview, module 02+)
+Two or three questions about the **previous two modules**. Prefer *why*
+over *what*.
+
+| Question | Concept label | Links back to |
+|---|---|---|
+|  |  | `0N-deep-dive.html#section` |
+
+### Predict-before-reveal
+| Where on the page | The question | Right answer | The tempting wrong answer, and why it tempts |
+|---|---|---|---|
+| Before the core snippet |  |  |  |
+
+The wrong answers matter more than the right one — they should be what a
+competent engineer would reasonably assume before reading the code.
+
+### Explain-back (Deep Dive, one per module)
+- Prompt:
+- Model answer, in one paragraph:
+- Rubric points (4-5, each checkable by the reader; at least one that a skimmer will have missed):
+  1.
+  2.
+  3.
+
+### Execution tracer (where the module warrants one)
+- Journey traced (something the reader has actually done in the app):
+- Steps (5-8), each with frame, push/pop, state, and `data-why` on every wrong option:
+
+### Real-bug challenge
+- Commit from Phase 1 archaeology: `<sha>`
+- What broke, and why it was quiet:
+
+### Ask Claude prompt
+Names *this module's* specific concepts, and instructs the model to push
+back on hand-wavy answers:
+
+> 
+
+### Quiz remediation
+Each question's `data-remediate` target:
+
+| Question | Sends a wrong answer to |
+|---|---|

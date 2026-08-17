@@ -1,6 +1,6 @@
 {
   "name": "source-to-syllabus",
-  "description": "Turn any codebase into a beautiful, multi-page interactive HTML course — plain-English intuition through proper software-engineering depth, with a deep codebase analysis, Overview + Deep Dive pages, quizzes, curated resources, and a light/dark toggle.",
+  "description": "Turn any codebase into a beautiful, multi-page interactive HTML course that takes a reader from 'I have no idea what's going on' to 'I understand this and can explain it.' Deep codebase analysis, Overview + Deep Dive pages per module, adjustable annotation depth up to line-by-line annotated source walkthroughs, comprehension checkpoints (explain-back, predict-before-reveal, retrieval practice, execution tracer), runnable exercises, verified code provenance, course search, and a capstone.",
   "author": {
     "name": "Hilary Wekesa"
   },
@@ -14,6 +14,9 @@
     "education",
     "documentation",
     "onboarding",
-    "learning"
+    "learning",
+    "code-explanation",
+    "line-by-line",
+    "walkthrough"
   ]
 }
