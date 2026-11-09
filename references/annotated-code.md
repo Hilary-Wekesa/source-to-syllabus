@@ -141,7 +141,8 @@ def get(self, key: str) -> Optional[bytes]:
 4. Aim to cover **≥65% of rendered lines** with notes — `check.sh`
    enforces this. A walkthrough that annotates six lines out of forty is
    a translation block wearing a costume; use the right element.
-5. Keep a single walkthrough under ~120 lines. Split a long function
+5. Start and end every range on a non-blank line: the verifier strips leading and trailing blank lines, so a blank first line shifts every number after it.
+6. Keep a single walkthrough under ~120 lines. Split a long function
    across two walkthroughs with prose between them rather than shipping
    one enormous block.
 
@@ -187,11 +188,11 @@ stamp underneath:
 </div>
 ```
 
-**Get the SHA once, in Phase 1**, and record it at the top of the
-analysis report:
+**Get the SHA once, in Phase 1**, from the latest default branch, and
+record it at the top of the analysis report:
 
 ```bash
-git -C <repo> rev-parse --short HEAD
+git -C <repo> rev-parse --short origin/main
 git -C <repo> remote get-url origin
 ```
 

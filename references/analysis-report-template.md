@@ -34,6 +34,9 @@ For each non-trivial component or algorithm, capture the material the Deep Dives
 ## 7. Clever patterns & gotchas
 Notable engineering patterns (caching, batching, idempotency, retries, etc.) and real bugs/gotchas visible in comments, error handling, or git history. These seed Deep Dive sections and quizzes.
 
+## 7b. Findings at this commit
+Live defects, docs that have drifted from the code, and rules the code breaks, each with `path:line` and marked confirmed or read-only. Keep adding as pages are written. These are for the owner to act on, and the course never edits the project.
+
 ## 8. Primary sources & further reading
 Canonical references for the concepts and tools in this codebase (specs, official docs, papers, respected write-ups) — verified URLs, per `resource-curation.md`. These feed the Deep Dive "Exercises & Primary Sources" sections.
 
@@ -46,7 +49,7 @@ The final module list (4-7), each mapped to a build stage, with a one-line Overv
 
 ```
 repo:   <git remote get-url origin>
-commit: <git rev-parse --short HEAD>
+commit: <git rev-parse --short origin/main>  (the default branch, not the working copy)
 date:   <YYYY-MM-DD>
 ```
 

@@ -38,6 +38,10 @@ Pages complete when their checkpoints are met, not when they're scrolled. And ev
 - **Runnable exercises** — at least one per Deep Dive ships as a failing test you actually run, with the project's real implementation as the solution.
 - **Course-wide search** and **`glossary.json`** auto-tooltips, both generated at build time.
 
+### From reading to hireable (optional)
+
+Tell it what the course is for. If the goal is to become a better engineer or pass interviews, it adds programming from zero, general skills taught through the project, SQL, write-it-yourself coding practice with tests, rebuilding the project's real functions from a blank file, and interview preparation: a question bank with cited answers, true stories from the commit history (with authorship checked), a system design round, and a study plan.
+
 ## Install
 
 ### Option A — Claude Code plugin (one command, auto-updates)
@@ -93,6 +97,10 @@ references/
   content-philosophy.md      # teaching principles
   comprehension.md           # checkpoints: explain-back, predict, recall, tracer
   annotated-code.md          # annotation depth axis, walkthroughs, provenance
+  parallel-build.md          # running a large course with many agents
+  career-tracks.md           # beginner, coding interview and interview tracks
+  check_exercises.sh         # every starter fails, every solution passes
+  md2page.py                 # renders the saved report as a course page
   git-archaeology.md         # reconstructing the real build order from history
   exercises.md               # runnable exercises
   glossary-and-search.md     # glossary.json + search index

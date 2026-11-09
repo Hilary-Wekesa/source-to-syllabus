@@ -2267,3 +2267,33 @@ body[data-gates="off"] .wt-hint { display: none; }
 .theme-dark .explain-back textarea,
 .theme-dark .predict textarea { background: var(--color-bg-warm); }
 .theme-dark .recall { background: var(--color-surface); }
+
+/* ─────────────────────────────────────────────────────────────
+   Interview questions, report tables and quotations
+   ───────────────────────────────────────────────────────────── */
+details.interview-q {
+  margin: var(--space-3) 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+details.interview-q > summary {
+  cursor: pointer;
+  padding: var(--space-3) var(--space-4);
+  font-weight: 600;
+  list-style-position: outside;
+}
+details.interview-q[open] > summary { border-bottom: 1px solid var(--color-border); }
+details.interview-q > div { padding: var(--space-3) var(--space-4); }
+details.interview-q .iq-source {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}
+.spec-table-wrap { overflow-x: auto; max-width: 100%; }
+.module-content blockquote {
+  border-left: 3px solid var(--color-accent);
+  margin: var(--space-4) 0;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface-warm);
+}

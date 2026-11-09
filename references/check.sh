@@ -4,6 +4,7 @@
 #
 #     bash check.sh              structural checks only
 #     bash check.sh --links      also verify every external URL (needs curl)
+#     CHECK_SKIP_LINKS='regex'   skip matching URLs (a private repo's source links)
 #
 # This is references/gotchas.md turned into something that actually
 # fails. Phase 4 is not done until this exits 0.
@@ -97,14 +98,15 @@ head_ "7. Quizzes"
 qtotal=0
 for f in src/*.html; do
   n=$(grep -o 'class="quiz-question-block"' "$f" | wc -l)
-  c=$(grep -o 'data-correct=' "$f" | wc -l)
+  # Drag-and-drop zones also carry data-correct (main.js reads it); they are not quiz questions.
+  c=$(grep -v 'class="dnd-zone"' "$f" | grep -o 'data-correct=' | wc -l)
   qtotal=$((qtotal+n))
   [ "$n" -ne "$c" ] && red "$(basename "$f"): $n question block(s) but $c data-correct attribute(s)"
   # Each data-correct value must match a data-value on an option in that file.
   while read -r want; do
     [ -z "$want" ] && continue
     grep -q "data-value=\"$want\"" "$f" || red "$(basename "$f"): data-correct=\"$want\" matches no option"
-  done < <(grep -oE 'data-correct="[^"]+"' "$f" | sed 's/data-correct="//;s/"$//' | sort -u)
+  done < <(grep -v 'class="dnd-zone"' "$f" | grep -oE 'data-correct="[^"]+"' | sed 's/data-correct="//;s/"$//' | sort -u)
 done
 for f in src/[0-9][0-9]-overview.html; do
   grep -q 'quiz-container' "$f" || red "$(basename "$f") has no quiz"
@@ -252,10 +254,14 @@ count=$(printf '%s\n' "$urls" | grep -c . )
 if [ "$CHECK_LINKS" -eq 1 ] && command -v curl >/dev/null 2>&1; then
   while read -r u; do
     [ -z "$u" ] && continue
+    # CHECK_SKIP_LINKS is a regex for URLs a script cannot judge, such as a private
+    # repository's "view source" links: CHECK_SKIP_LINKS='github\.com/org/repo' bash check.sh --links
+    if [ -n "${CHECK_SKIP_LINKS:-}" ] && printf '%s' "$u" | grep -qE "$CHECK_SKIP_LINKS"; then continue; fi
     code=$(curl -o /dev/null -sIL -w '%{http_code}' --max-time 12 "$u" || echo 000)
     case "$code" in
       2*|3*) ;;
       000)   yell "unreachable (network?): $u" ;;
+      403|429) yell "blocks automated checks ($code), confirm by hand: $u" ;;
       4*|5*) red "dead link ($code): $u" ;;
     esac
   done <<< "$urls"

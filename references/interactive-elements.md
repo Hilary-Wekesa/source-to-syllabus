@@ -416,8 +416,7 @@ Full-system diagram where hovering/clicking a component shows a description tool
 <div class="arch-diagram">
   <div class="arch-zone arch-zone-browser">
     <h4 class="arch-zone-label">Browser</h4>
-    <div class="arch-component" data-desc="Injects UI into the web page, reads DOM, captures user actions"
-         onclick="showArchDesc(this)">
+    <div class="arch-component" data-desc="Injects UI into the web page, reads DOM, captures user actions">
       <div class="arch-icon">📄</div>
       <span>Component A</span>
     </div>

@@ -228,3 +228,37 @@ apologise for the material.
 If a page registers checkpoints, completion means *checkpoints met* —
 never scroll position. A progress badge that measures scrolling is
 decoration, and worse, it tells the reader they're done when they aren't.
+
+---
+
+## v6 Gotchas (Parallel Builds · Career Tracks)
+
+### A Course That Only Trains Reading
+The reader's goal is to get hired, and the course never asks them to write a function from a blank file. **Fix:** ask the goal in Phase 0. See `career-tracks.md`.
+
+### "Give Me Everything" Read as "Advanced"
+The inline toggle opens on Technically for someone who has written a few lines of code. **Fix:** depth and fluency are separate. Ask what they have actually built, and open on Simply unless they are an experienced engineer.
+
+### Pinning a Feature Branch
+The working copy was 30 commits behind main, so the course taught stale code. **Fix:** pin `origin/main` and read from a `git archive` export.
+
+### Replacing a Placeholder That Also Appears in a Comment
+A global replace of a template token also rewrites any comment naming it. **Fix:** the shipped `_head.html` keeps each token unique; keep it that way when customizing.
+
+### Wrong Pager Classes
+The pager is `.prev` / `.next` with `.pager-dir` and `.pager-title`. Other names render unstyled and pass `check.sh`.
+
+### Agents Guessing Anchors
+Each brief invents section ids for pages that do not exist yet. **Fix:** cross-page links use only the guaranteed Deep Dive anchors until those pages exist.
+
+### Drag-and-Drop With Many Chips per Zone
+`main.js` matches one chip to one zone. A 10-items-to-4-buckets exercise cannot work. **Fix:** use one-to-one pairs, or `.pattern-cards` with a `<details>` verdict.
+
+### Trusting an Agent's "Done"
+Each agent checked its own pages. Links between them, duplicate ids and glossary merges only exist once they are combined. **Fix:** the lead runs the full gate last.
+
+### Overclaiming in Interview Material
+A story credits the reader with code someone else wrote, or a bullet implies traffic the product never had. **Fix:** check authorship and cite usage. See the honesty rules in `career-tracks.md`.
+
+### Common Words in the Glossary
+"Module" or "value" as a glossary term gets a tooltip on nearly every page. **Fix:** remove words a reader of that page already has, and prefer specific terms.

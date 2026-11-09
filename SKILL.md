@@ -1,6 +1,6 @@
 ---
 name: source-to-syllabus
-description: "Turn any codebase into a beautiful, multi-page interactive HTML course that teaches how the project works AND how it was built — from plain-English intuition all the way to proper software-engineering depth. Use this skill whenever someone wants to create an interactive course, tutorial, guided build, deep-dive, or educational walkthrough from a codebase or project. Also trigger for 'turn this into a course,' 'explain this codebase,' 'teach me this code,' 'how was this built,' 'deep dive on this repo,' 'codebase walkthrough,' 'upskill me on this project,' 'make me a better engineer with this,' or 'make a course from this project.' The skill first performs a deep codebase analysis and saves it as a report, then generates a multi-page course: a landing/syllabus page, an architecture page, and per module an Overview page (plain-English + build journey) and a Deep Dive page (complexity, tradeoffs, failure modes, exercises, and primary-source reading). Includes a Simply/Technically toggle, TL;DRs, curated resources, animated visualizations, quizzes, code-with-plain-English translations, and an adjustable annotation depth that goes all the way to line-by-line annotated source walkthroughs. Also trigger for 'explain this code line by line,' 'annotate this file,' 'walk me through this function line by line,' or 'I want every line explained.'"
+description: "Turn any codebase into a beautiful, multi-page interactive HTML course that teaches how the project works AND how it was built — from plain-English intuition all the way to proper software-engineering depth. Use this skill whenever someone wants to create an interactive course, tutorial, guided build, deep-dive, or educational walkthrough from a codebase or project. Also trigger for 'turn this into a course,' 'explain this codebase,' 'teach me this code,' 'how was this built,' 'deep dive on this repo,' 'codebase walkthrough,' 'upskill me on this project,' 'make me a better engineer with this,' or 'make a course from this project.' The skill first performs a deep codebase analysis and saves it as a report, then generates a multi-page course: a landing/syllabus page, an architecture page, and per module an Overview page (plain-English + build journey) and a Deep Dive page (complexity, tradeoffs, failure modes, exercises, and primary-source reading). Includes a Simply/Technically toggle, TL;DRs, curated resources, animated visualizations, quizzes, code-with-plain-English translations, and an adjustable annotation depth that goes all the way to line-by-line annotated source walkthroughs. Also trigger for 'explain this code line by line,' 'annotate this file,' 'walk me through this function line by line,' 'I want every line explained,' 'prepare me for interviews about this project,' 'teach me to code using this project,' or 'I need to be able to defend this codebase.'"
 ---
 
 # Source-to-Syllabus
@@ -13,6 +13,7 @@ That last word is the bar. A course that is merely read does not clear it, so th
 2. **Teaches how it was built, step by step** — modules follow the real implementation order. Each step answers *what it is, why it's done, how it's done*, with a **TL;DR** for every step.
 3. **Upskills the reader as an engineer** — every Deep Dive covers complexity & performance, alternative designs & tradeoffs, failure modes & concurrency, and hands-on exercises with primary-source reading. This is the "proper SWE upskilling" layer.
 4. **Checks that it actually landed** — explain-back gates, predict-before-reveal, retrieval practice across modules, an execution tracer, confidence calibration, and a capstone where the reader explains the whole system back. Pages complete when checkpoints are met, not when they're scrolled. See `references/comprehension.md`.
+5. **Can carry a beginner all the way to interviews** — when that is the reader's goal, optional tracks add programming from zero, general engineering skills, SQL, write-it-yourself coding practice, and interview preparation built from the project's real history. See `references/career-tracks.md`.
 
 **Output is a multi-page site** (standalone HTML files sharing one stylesheet, one script, and a persistent sidebar): a landing/syllabus page, an architecture page, per module an Overview page and a Deep Dive page, and a capstone. It opens with `index.html`, runs offline (only external deps: Google Fonts CDN + curated resource links), and every page loads independently so deep modules stay fast.
 
@@ -27,9 +28,11 @@ When first triggered without a codebase specified, introduce yourself:
 > - **A GitHub link** — "make a course from https://github.com/user/repo"
 > - **The current project** — "turn this into a course"
 >
-> First I'll ask two things: how deep you want to go (beginner → advanced), and how densely you want the code explained (a few key snippets → a full line-by-line annotation of the files that matter). Then I **analyze the codebase and save a written analysis report**, and build a multi-page course: a syllabus, an architecture page, for each module an **Overview** page (how it works, plain-English, the build journey) plus a **Deep Dive** page (complexity, tradeoffs, failure modes, runnable exercises, primary sources), and a **capstone** where you explain the whole system back.
+> First I'll ask three things: how deep you want to go (beginner → advanced), how densely you want the code explained (a few key snippets → a full line-by-line annotation of the files that matter), and what the course is for (understanding it, levelling up, or interviews). Then I **analyze the codebase and save a written analysis report**, and build a multi-page course: a syllabus, an architecture page, for each module an **Overview** page (how it works, plain-English, the build journey) plus a **Deep Dive** page (complexity, tradeoffs, failure modes, runnable exercises, primary sources), and a **capstone** where you explain the whole system back.
 >
 > It's built to be worked through, not just read — it predicts, quizzes, and asks you to explain things in your own words before it hands over the answer. One toggle turns all of that off if you'd rather use it as a reference. Every code snippet is stamped with the file and line it came from and verified against the real source. It runs in your browser — no setup.
+>
+> If you're learning to code or preparing for interviews, tell me: I can add programming from zero, write-it-yourself practice, SQL, and interview preparation built from the project's real history.
 
 If given a GitHub link, clone first (`git clone <url> /tmp/<repo-name>`). If they say "this codebase," use the current directory.
 
@@ -52,7 +55,9 @@ Anchor every concept in a real, running project, then layer theory as "here's th
 
 ### Phase 0: Choose the Learner's Level *and* the Annotation Depth
 
-Ask **two** questions (in Cowork use `AskUserQuestion` — both in one call; in a CLI just ask). They are orthogonal axes: level is *who the reader is*, annotation is *how densely the code is explained*. Never fold one into the other — a beginner may want every line spelled out, and so may a staff engineer reading an unfamiliar algorithm.
+Ask **three** questions (use `AskUserQuestion` where available, all in one call; in a CLI just ask). They are orthogonal axes: level is *who the reader is*, annotation is *how densely the code is explained*, goal is *what the course is for*. Never fold one into another — a beginner may want every line spelled out, and so may a staff engineer reading an unfamiliar algorithm.
+
+If a course already exists at the output location, look at what commit it is pinned to, then also ask whether to replace it or build alongside. Back it up before deleting anything.
 
 **Question 1 — Level:** **Beginner**, **Intermediate**, **Advanced**, or **Give me everything**. This sets DEFAULTS only — both Overview and Deep Dive pages always exist; the toggle always remains.
 
@@ -68,7 +73,9 @@ Ask **two** questions (in Cowork use `AskUserQuestion` — both in one call; in 
 
 **Beginner means beginner.** If the reader picks Beginner — or says anything like "I have no idea what's going on," "I'm not a developer," "I've never read code" — build **Module 0** (see Page Anatomy). Without it the course claims to serve absolute beginners while Module 1 quietly assumes they can already read a function signature. That gap is the difference between the promise and the artifact.
 
-If the user already signaled a level ("I'm senior," "new to backend"), infer it. Record it — it appears in the sidebar badge and tunes every page. For **Advanced**, also default the inline toggle to *Technically* (see Phase 3).
+**Give me everything** means maximum depth on every lever and Module 0 included. It does *not* mean the reader is advanced: keep the default inline track on *Simply* unless they are an experienced engineer. Choosing depth and being fluent are different things, and a beginner who asks for everything still needs the intuition first.
+
+If the user already signaled a level ("I'm senior," "new to backend"), infer it, and ask how much they have actually programmed if it is unclear. Record it — it appears in the sidebar badge and tunes every page. For **Advanced**, also default the inline toggle to *Technically* (see Phase 3).
 
 **Question 2 — Annotation depth:** how densely should real code be explained?
 
@@ -83,6 +90,8 @@ If the user already signaled a level ("I'm senior," "new to backend"), infer it.
 
 Record the annotation mode too: it fills the second sidebar badge (`ANNOTATION` in `_head.html`) and drives Phase 2.5 and Phase 3. Read `references/annotated-code.md` before writing any code into a page.
 
+**Question 3 — Goal:** **Understand this project**, **Become a better engineer**, or **Prepare for interviews**. Understanding needs the core course alone. The other two add tracks: read `references/career-tracks.md` at Phase 2 and scope them with the reader, because they can double the build. If the goal is interviews and the reader is new to code, say honestly that a reading course does not prepare anyone for live coding, and recommend the Foundations and Coding tracks first. If the user raises the goal later, extend the course rather than starting over.
+
 ### Phase 1: Deep Codebase Analysis → Saved Report
 
 **This is the foundation. Do it thoroughly, and write it down.** Read the codebase deeply — entry points, core modules, data flows, dependencies, git history and comments for real bugs and decisions. Reconstruct the *build order*. Then write a saved report to `course-name/analysis/codebase-analysis.md` using `references/analysis-report-template.md`.
@@ -90,13 +99,17 @@ Record the annotation mode too: it fills the second sidebar badge (`ANNOTATION` 
 **Do the git archaeology first — read `references/git-archaeology.md`.** The build order, the real bugs, and the genuinely-rejected alternatives all come from history, not from guessing. Also capture the pin, which every code snippet in the course will cite:
 
 ```bash
-git -C <repo> rev-parse --short HEAD        # → data-sha on every code block
+git -C <repo> fetch origin
+git -C <repo> rev-parse --short origin/main # → data-sha on every code block
 git -C <repo> remote get-url origin         # → data-repo on every code block
+mkdir -p <scratch>/pin && git -C <repo> archive <sha> | tar -x -C <scratch>/pin
 ```
+
+Pin the latest default branch, not whatever the working copy has checked out, and read code from the exported tree. A working copy can be on a feature branch, behind main, or dirty. Use the local HEAD only when the user asks for it or there is no remote.
 
 If the project has no usable history, say so in the report and mark the build order as **inferred from dependency structure** rather than observed. Never present an inferred order as if it were evidence.
 
-The report is both a **deliverable the user can read on its own** and the **single source of truth** every page is written from. Also render it as an **in-course page** (`src/analysis.html`) so the reader can open it from the sidebar/index alongside the other pages — same content, styled like the rest of the course, with a pager. Keep the `.md` as the portable copy in `analysis/`. It must capture:
+The report is both a **deliverable the user can read on its own** and the **single source of truth** every page is written from. Also render it as an **in-course page** (`src/analysis.html`) with `python3 md2page.py analysis/codebase-analysis.md src/analysis.html`, rerun whenever the report changes, so the reader can open it from the sidebar/index alongside the other pages — same content, styled like the rest of the course, with a pager. Keep the `.md` as the portable copy in `analysis/`. It must capture:
 - What the app does and its end-to-end user journey.
 - The architecture: components, responsibilities, and how they communicate.
 - The data model and key data structures.
@@ -104,12 +117,13 @@ The report is both a **deliverable the user can read on its own** and the **sing
 - For each significant piece: the *simple* explanation and the *technical* mechanics, including complexity, tradeoffs, alternatives considered, and failure modes.
 - Clever patterns, gotchas, and real bugs.
 - The tech stack and why each piece was chosen.
+- **Findings at this commit:** live defects, docs that have drifted from the code, and rules the code breaks, each marked confirmed or read-only. Keep adding to this as pages are written. Tell the user about them, and leave the project's code alone unless they ask.
 
 Do NOT ask the user to explain their own product — figure it out from the code. Quality here determines the quality of every Deep Dive; invest in it.
 
 ### Phase 2: Curriculum Design — Build Journey, Two Pages per Module
 
-Structure **4-7 modules that follow the implementation order**. Each module becomes **two pages**: an **Overview** and a **Deep Dive**. Plus two standalone pages: the **index** (landing + syllabus) and the **architecture** page (the report distilled into a visual, navigable page).
+Structure **4-7 modules that follow the implementation order** (a large codebase, or a career build with General Skills modules, can go higher). Each module becomes **two pages**: an **Overview** and a **Deep Dive**. Plus two standalone pages: the **index** (landing + syllabus) and the **architecture** page (the report distilled into a visual, navigable page).
 
 | Position | Build-Journey purpose | Transferable skill |
 |---|---|---|
@@ -127,7 +141,9 @@ A menu adapted to the codebase, not a fixed list. **Don't present the curriculum
 
 **Comprehension checkpoints are mandatory too** — read `references/comprehension.md`. Per page: an **explain-back** on every Deep Dive, **predict-before-reveal** blocks placed before the thing they're about, **retrieval practice** at the top of every Overview from Module 2 on, an **Ask Claude** button per module, at least one **execution tracer** across the course, and a **mastery checklist** on the capstone. Budget 3-5 checkpoints per page — more and the course becomes a form to fill in. Every checkpoint soft-gates only; the sidebar Reading-mode toggle must always be able to open all of them.
 
-**Choose the build path:** simple codebase (≤5 modules) → write pages sequentially. Complex codebase (6+ modules, full-stack) → Phase 2.5 briefs, then dispatch pages to subagents in batches.
+**Choose the build path:** simple codebase (≤5 modules) → write pages sequentially. Complex codebase (6+ modules, full-stack) → Phase 2.5 briefs, then dispatch pages to subagents. Read `references/parallel-build.md` first: its collision rules come from real failures.
+
+**If the goal goes beyond understanding,** add the tracks from `references/career-tracks.md` to the curriculum now, so the reading order, sidebar groups and pagers are planned once.
 
 ### Phase 2.5: Module Briefs (complex codebases only)
 
@@ -149,7 +165,9 @@ course-name/
   build.sh          ← copied verbatim from references/build.sh
   build_assets.py   ← copied verbatim (glossary injection + search index)
   check.sh          ← copied verbatim (pre-flight gate)
+  check_exercises.sh← copied verbatim (every starter fails, every solution passes)
   verify_snippets.py← copied verbatim (code provenance verifier)
+  md2page.py        ← copied verbatim (renders the report as src/analysis.html)
   glossary.json     ← terms → plain-English definitions (you write it)
   analysis/
     codebase-analysis.md   ← the saved analysis report (Phase 1)
@@ -170,12 +188,12 @@ course-name/
   search-index.json ← emitted by build.sh
 ```
 
-**Step 1 — Setup:** Create the directory. Copy verbatim: `styles.css`, `main.js`, `_foot.html`, `build.sh`, `build_assets.py`, `check.sh`, `verify_snippets.py`. Create `analysis/` and write the report there. Create `glossary.json` (see `references/glossary-and-search.md`) — 30-60 terms, written as you draft pages rather than all at the end.
+**Step 1 — Setup:** Create the directory. Copy verbatim: `styles.css`, `main.js`, `_foot.html`, `build.sh`, `build_assets.py`, `check.sh`, `check_exercises.sh`, `verify_snippets.py`, `md2page.py`. Create `analysis/` and write the report there. Create `glossary.json` (see `references/glossary-and-search.md`) — 30-60 terms, written as you draft pages rather than all at the end.
 
 **Step 2 — Customize `_head.html`:** Read `references/_head.html`, write it to `course-name/_head.html` with:
 - `COURSE_TITLE`, `COURSE_SUBTITLE`, `LEVEL` (the Phase 0 level), `ANNOTATION` (the Phase 0 annotation mode, e.g. "line-by-line"). If annotation is Standard, delete that badge span rather than leaving the placeholder.
 - The four `ACCENT_*` values (pick a palette).
-- `SIDEBAR_MODULES` → one `.sb-module` block per module (Overview + Deep Dive links; filenames must match `src/`). Keep the top-links to `index.html`, `analysis.html`, and `architecture.html`; add `00-orientation.html` (Beginner only) and `capstone.html`. Keep the `.gates-toggle` button — it is the reader's escape hatch from the checkpoints.
+- `SIDEBAR_MODULES` → one `.sb-module` block per module (Overview + Deep Dive links; filenames must match `src/`). The top-links to `index.html`, `analysis.html` and `architecture.html`, and the `capstone.html` link after the modules, are already in the template; add a `00-orientation.html` block when Module 0 exists and groups for any career tracks. Keep the `.gates-toggle` button — it is the reader's escape hatch from the checkpoints.
 - Optionally override `--color-accent-2`, `--color-actor-*`, `--color-surface-warm` for a fuller brand.
 - **Advanced level:** author each `.dual-track` block with its `technically` tab/pane marked `active` instead of `simply`.
 
@@ -185,7 +203,9 @@ course-name/
 
 **Code discipline while writing:** every code block carries `data-src` / `data-start` / `data-sha` / `data-repo`. Paste real lines — never re-type from memory, never trim to make it read better. Inside a `.walkthrough`, never hand-write `<span class="code-keyword">`; the tokenizer in `main.js` handles highlighting, and manual spans corrupt the byte-comparison.
 
-For complex codebases, dispatch pages to subagents in batches of ≤3 modules (each agent writes one module's Overview + Deep Dive from its brief).
+For complex codebases, dispatch one agent per module as soon as its brief is ready (each writes that module's Overview + Deep Dive from its brief), following `references/parallel-build.md`.
+
+**Pager markup** (exact classes, or the styling is lost): `<nav class="pager"><a class="prev" href="…"><span class="pager-dir">← Back</span><span class="pager-title">…</span></a><a class="next" href="…"><span class="pager-dir">Next →</span><span class="pager-title">…</span></a></nav>`, inside `.module-content`.
 
 **Step 4 — Build the exercises.** Write `exercises/` per `references/exercises.md`, then actually run each one: it must fail against `starter/` and pass against `solution/`. An exercise you didn't execute doesn't ship.
 
@@ -193,18 +213,21 @@ For complex codebases, dispatch pages to subagents in batches of ≤3 modules (e
 
 ### Phase 4: Verify, Then Open
 
-**Verification is a gate, not a glance. Run all three:**
+**Verification is a gate, not a glance. Run all four, yourself, after the last page lands:**
 
 ```bash
 cd course-name
 bash check.sh                                    # structure, links, required sections
 bash check.sh --links                            # also verifies every external URL
-python3 verify_snippets.py --repo <path-to-repo> # every snippet byte-matches the source
+python3 verify_snippets.py --repo <path-to-pinned-tree> # every snippet byte-matches the source
+bash check_exercises.sh                          # every starter fails, every solution passes
 ```
+
+For a private repository, the "view source" links return 404 to a script: pass `CHECK_SKIP_LINKS='github\.com/org/repo'` and tell the reader those links need a signed-in account. Sites that refuse bots (403) are reported as warnings to confirm another way.
 
 `check.sh` must exit 0. `verify_snippets.py` must report zero failures — a `DRIFT` means a wrong `data-start` (fix the number), a `MISMATCH` means the rendered code isn't what's in the file (paste the real lines). Do not skip this because the pages look fine; looking fine is exactly the failure mode it catches.
 
-Then open `index.html`, click through the sidebar, spot-check one Deep Dive end-to-end, and test one walkthrough's hover/pin behaviour. Note for the user that course search needs a local server (`python3 -m http.server 8000`) since browsers block `fetch()` over `file://` — everything else works offline. Walk them through it and invite feedback.
+Then serve the course over localhost (a `file://` preview in an embedded browser pane may not run scripts), click through the sidebar, spot-check one Deep Dive end-to-end, and test one walkthrough's hover/pin behaviour. Note for the user that course search needs a local server (`python3 -m http.server 8000`) since browsers block `fetch()` over `file://` — everything else works offline. Walk them through it and invite feedback.
 
 ---
 
@@ -253,6 +276,7 @@ Open with a `.page-kicker` ("DEEP DIVE"), a one-line orientation, and a `.dd-toc
 4. **Exercises & Primary Sources** — 2-4 `.exercise` cards, **at least one of them runnable** (see `references/exercises.md`), plus a `.spec-ref` / resource list pointing to specs, papers, and canonical docs (verified — see `references/resource-curation.md`).
 - At **Line-by-line** / **Exhaustive** annotation: at least one **Annotated Source Walkthrough** of a canonical file, placed in whichever section it teaches best (usually 1 or 3). See `references/annotated-code.md`.
 - **Checkpoints:** one **predict** block before the hardest idea on the page, a `data-confidence` quiz, and an **explain-back** at the very end — the module's exit test. Where the module warrants it, add an **execution tracer** or a **real-bug challenge** built from a genuine fix commit.
+- In a career build, `#practice` ends with an `#interview` block of 8-12 likely questions with spoken-length model answers (see `references/career-tracks.md`).
 - A pager: **next = the next module's Overview** (or, on the last module, the capstone).
 
 ### Capstone page (`src/capstone.html`) — the exit
@@ -290,6 +314,9 @@ Read only when you reach the relevant phase.
 - **`references/design-system.md`** — Full token system. Read at Phase 3.
 - **`references/gotchas.md`** — Failure-point checklist. Read at Phase 3 and 4.
 - **`references/_head.html` / `_foot.html` / `build.sh` / `build_assets.py`** — The multi-page shell, assembler, and build helpers. Customize `_head.html`; copy the others verbatim.
-- **`references/check.sh` / `verify_snippets.py`** — The Phase 4 gate: structural validation and snippet byte-verification. Copy verbatim; both must pass.
+- **`references/check.sh` / `check_exercises.sh` / `verify_snippets.py`** — The Phase 4 gate: structural validation, exercises, and snippet byte-verification. Copy verbatim; all must pass.
+- **`references/md2page.py`** — Renders the saved report as `src/analysis.html`. Copy verbatim.
+- **`references/parallel-build.md`** — Running a large course with many agents: pinning, briefs, shared preambles, collision rules, verifying reports, resuming after interruption. Read at **Phase 2.5**.
+- **`references/career-tracks.md`** — Foundations, General Skills, SQL, Coding Interview and Interview pages, for readers whose goal goes beyond understanding. Includes the honesty rules. Read at **Phase 2**.
 
 > **Legacy single-page mode:** the original single-scroll shell (`references/_base.html` + `references/_footer.html`) is still present for compact courses. For the deep, multi-page course this skill is designed around, use `_head.html` / `_foot.html`.

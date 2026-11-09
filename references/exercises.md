@@ -23,8 +23,12 @@ course-name/
       starter/                     ← code with the gap
       test_eviction.py             ← fails against starter, passes against solution
       solution/                    ← the working implementation
-      run.sh                       ← one command: sets up, runs the test
+      run.sh                       ← `bash run.sh` tests starter/, `bash run.sh solution` tests solution/
 ```
+
+`run.sh` takes the target as its first argument and defaults to `starter`.
+`check_exercises.sh` relies on this. One folder can hold many small problems
+(Foundations and Coding pages do), each test named after its problem.
 
 Number directories to match modules. Reader clones nothing extra — the
 exercise is self-contained and runs against the course's own copy of the
@@ -44,6 +48,10 @@ Ask the reader to introduce the specific race or off-by-one from the
 module's Failure Modes section and observe what the test does — usually
 nothing, which is the lesson. Then have them write the test that would
 have caught it. This teaches why the bug shipped.
+
+**Write it from a blank file.** For career builds: real functions with empty
+bodies, tests from their real behaviour, quirks included, and the real code
+hidden until the attempt is done. See `career-tracks.md`.
 
 **3. Measure it.** A benchmark script and a hypothesis. "The Deep Dive
 claims this is O(n log n). Run it at n = 10³, 10⁴, 10⁵ and check." Pairs
@@ -121,11 +129,16 @@ that all of them must be.
 ## Verify before shipping
 
 ```bash
+bash check_exercises.sh     # from the course root: all of them, both ways
+
 cd exercises/03-eviction-policy
 bash run.sh                 # expect: FAIL against starter
-cp solution/*.py starter/ && bash run.sh   # expect: PASS
-git checkout starter/       # restore
+bash run.sh solution        # expect: PASS
 ```
+
+Also try one deliberately wrong solution (brute force, the known bug): a test
+suite that accepts it is too weak. Timing tests should be sized so a wrong
+answer fails in about a second instead of hanging.
 
 If you can't run the project's language in your environment, say so in
 the exercise README rather than shipping a test you never executed.

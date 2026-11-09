@@ -307,6 +307,8 @@ Tick honestly. Unticked boxes are a reading list, not a failure — say so.
 | **Architecture** | 1 tracer of the primary journey |
 | **Capstone** | recall across all modules, 1 tracer, 1 explain-back on the whole system, mastery checklist |
 | **Index / Analysis** | none — these are orientation, not instruction |
+| **Foundations / Coding / SQL** (single pages) | 3-5 from recall, predict, tracer, explain-back, plus one quiz |
+| **Interview pages** | at most 3; `details.interview-q` answers do not count |
 
 Add `data-checkpoint="<id>"` to each module quiz so it counts toward
 page completion. A page is complete when every checkpoint on it is met —
